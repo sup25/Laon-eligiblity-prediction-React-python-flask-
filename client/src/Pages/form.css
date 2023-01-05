@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto+Slab&display=swap');
+
+
+form {
+    width: 500px;
+    margin: 10px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Roboto Slab', serif;
+    box-shadow: 0 0 2px #888;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+
+}
+
+label select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 2px #888;
+}
+
+
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 2px #888;
+
+}
+
+input[type="radio"] {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: baseline;
+    cursor: pointer;
+
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 2px #888;
+
+}
+
+
+h3 {
+    width: 100%;
+    background-color: rgba(204, 204, 204, 0.171);
+    border-bottom: 1px solid teal;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+
+
+
+
+
+
+button[type="submit"] {
+    background-color: teal;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background-color: #2c2a2a;
+}
