@@ -1,9 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState  } from 'react';
 import './form.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 
 //axios is used to send data from a React component to a Python backend and a POST request.
 function Form() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    function openModal() {
+      setIsModalOpen(true);
+    
+    }
+  
+    function closeModal() {
+      setIsModalOpen(false);
+    }
+
+    
 
     const [data, setData] = useState('');
     const [selectedOption1, setSelectedOption1] = useState('');
@@ -35,25 +48,28 @@ function Form() {
     }
 
 
-
+  
 
     async function handleSubmit(event) {
         event.preventDefault();//prevents reload of the page
-
-        // console.log('Marital Status:', selectedOption1);
-        // console.log('Dependents:', selectedOption2);
-        // console.log('Self Employed:', selectedOption3);
-        try {
+         try {
             const response = await axios.post('/api/send-data', { data });
-            console.log(response.data);
+            alert(response.data["Remarks"]);
+             
+            
+            
         } catch (error) {
             console.error(error);
         }
         console.log(data);// values are stored in data when we click submit button
+        
+    
     }
+   
+      
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}  >
 
             <label>
                 <h3> Name</h3>
@@ -228,7 +244,20 @@ function Form() {
                     onChange={handleChange} />
             </label>
             <br />
-            <button type="submit">Submit</button>
+
+            
+        {isModalOpen && (
+        <div id='style-one'>
+          <div id='style-two'>
+            <h2>See Information about banks?</h2>
+            <p>Visit our <Link to='/Blog'>Blog</Link> content to know more!</p>
+            <button onClick={closeModal}>Close</button>
+          </div>
+        </div>
+      )}
+          
+        
+        <button  onClick={openModal}  type="submit">Submit</button>
         </form>
     );
 }

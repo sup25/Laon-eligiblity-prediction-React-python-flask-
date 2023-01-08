@@ -122,6 +122,14 @@ class LogisticRegression:
 
         return np.array(class_pred)
 
+        #function written above returns all data
+        #make new function that returns only data which is submitted
+    def predict_for_one(self,X):
+        linear_predictions = np.dot(X, self.weights) + self.bias
+        y_pred = sigmoid(linear_predictions)
+        class_pred = [1 if y_pred >= 0.5 else 0]
+        return class_pred
+
 
 
 # ### 4. The Implementation of Loss Class

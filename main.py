@@ -60,9 +60,9 @@ import json
 app= Flask(__name__)
 #Members api routes
 
-@app.route("/members")
-def members():
-    return {}
+# @app.route("/members")
+# def members():
+#     return {}
 
 
 
@@ -88,14 +88,24 @@ def send_data():
 
 
   # Process the data and return a response
-  data_list = [gender,married,dependent,education,selfemployed,creditHistory, propertyArea,applicationIncomelog,loanamountlog, loanamounttermlog,totalincomelog
-] 
-#   data_numpy=np.array(data_list)
+  data_list = [gender,married,dependent,education,selfemployed,creditHistory, propertyArea,applicationIncomelog,loanamountlog, loanamounttermlog,totalincomelog] 
+  data_numpy = np.array(data_list)
 #   data_numpy=np.reshape (1,11)
-#   y_pred = clf.predict(data_list)
+  y_pred = clf.predict_for_one(data_numpy)
+  print(y_pred)
+  if y_pred[0] == 1:
+    y_predictions = "Loan is acceptable!"
+  else:
+    y_predictions = "Loan is not acceptable"
   print(data_list)
-  return { 'message': "done" }
+  return {"Remarks":y_predictions}
+  
 
+ 
+
+ 
+   
+    
 
 
    
