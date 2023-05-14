@@ -3,10 +3,9 @@ import Form from './Pages/Form';
 import Navbar from './components/Navbar';
 import Blog from './Pages/Blog';
 import {
-  createBrowserRouter,
-  RouterProvider,
-
-  Outlet,
+  Route,
+  Routes,
+  Outlet
 } from "react-router-dom";
 //outlet renders whole body of our webpage
 const Layout = () => {
@@ -20,24 +19,7 @@ const Layout = () => {
   )
 }
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    children: [
-      {
-        path: "/",
-        element: <Form />
-      },
-      {
-        path: "/Blog",
-        element: <Blog />
-      },
 
-    ]
-  },
-
-]);
 
 
 
@@ -59,7 +41,12 @@ function App() {
   // }, [])
   return (
     <div>
-      <RouterProvider router={router} />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path='/' element={<Form />} />
+          <Route path='/blog' element={<Blog />} />
+        </Route>
+      </Routes>
 
 
 

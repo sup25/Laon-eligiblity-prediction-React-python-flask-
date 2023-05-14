@@ -18,12 +18,10 @@ function Form() {
   //all the initial state are set to null
   const [data, setData] = useState("");
 
-  const [isInvalid4Called, setIsInvalid4Called] = useState(false);
   //this is for Number Field
   function handleChange(event) {
     const { name, value } = event.target;
     setData((prevData) => ({ ...prevData, [name]: value }));
-    setIsInvalid4Called(true);
   }
 
   //this is for Dropdown
@@ -81,7 +79,7 @@ function Form() {
     }
   }
   function iconInvalid4() {
-    if (String(data.applicantIncome).length < 3)
+    if (data.applicantIncome < 100)
       return "Applicant income cannot be less than 100";
     else {
       return "";
@@ -89,9 +87,13 @@ function Form() {
   }
 
   function iconInvalid5() {
-    if (String(data.totalIncome).length < String(data.applicantIncome).length)
-      return "Total family income should be more than Applicant Income";
-    else {
+    if (data.totalIncome && data.applicantIncome) {
+      if (parseInt(data.totalIncome) < parseInt(data.applicantIncome)) {
+        return "Total family income should be more than Applicant Income";
+      } else {
+        return "";
+      }
+    } else {
       return "";
     }
   }
@@ -140,37 +142,119 @@ function Form() {
     !isInvalid;
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        <h3> Name</h3>
-        <input
-          type="text"
-          title="Please enter your full name"
-          name="name"
-          placeholder="Full Name"
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label>
-        <h3>Gender</h3>
-        <select name="Gender" onChange={handleChange0}>
-          <option default value="">
-            Select
-          </option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
-      </label>
-      <br />
-      <div>
-        <h3>Marital Status</h3>
+    <>
+      <h1>Fill up the form to check your loan eligibility</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          <h3> Name</h3>
+          <input
+            type="text"
+            title="Please enter your full name"
+            name="name"
+            placeholder="Full Name"
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+        <label>
+          <h3>Gender</h3>
+          <select name="Gender" onChange={handleChange0}>
+            <option default value="">
+              Select
+            </option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </label>
+        <br />
+        <div>
+          <h3>Marital Status</h3>
+          <label>
+            <input
+              type="radio"
+              name="married"
+              value="Yes"
+              checked={selectedOption1 === "Yes"}
+              onChange={handleChange1}
+            />
+            &nbsp; Yes
+          </label>
+          <br />
+          <label>
+            <input
+              type="radio"
+              name="married"
+              value="No"
+              checked={selectedOption1 === "No"}
+              onChange={handleChange1}
+            />
+            &nbsp; No
+          </label>
+        </div>
+        <br />
+        <h3>Dependents</h3>
         <label>
           <input
             type="radio"
-            name="married"
+            name="dependents"
+            value="0"
+            checked={selectedOption2 === "0"}
+            onChange={handleChange1}
+          />
+          &nbsp;0
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            name="dependents"
+            value="1"
+            checked={selectedOption2 === "1"}
+            onChange={handleChange1}
+          />
+          &nbsp; 1
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            name="dependents"
+            value="2"
+            checked={selectedOption2 === "2"}
+            onChange={handleChange1}
+          />
+          &nbsp; 2
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            name="dependents"
+            value="3 or 3+"
+            checked={selectedOption2 === "3 or 3+"}
+            onChange={handleChange1}
+          />
+          &nbsp; 3 or 3+
+        </label>
+        <br />
+        <label>
+          <h3>Education</h3>
+          <select name="education" onChange={handleChange0}>
+            <option default value="">
+              Select
+            </option>
+            <option value="Graduate">Graduate</option>
+            <option value="Not Graduate">Not Graduate</option>
+          </select>
+        </label>
+        <br />
+        <h3>Self Employed</h3>
+        <label>
+          <input
+            type="radio"
+            name="selfEmployed"
             value="Yes"
-            checked={selectedOption1 === "Yes"}
+            checked={selectedOption3 === "Yes"}
             onChange={handleChange1}
           />
           &nbsp; Yes
@@ -179,203 +263,124 @@ function Form() {
         <label>
           <input
             type="radio"
-            name="married"
+            name="selfEmployed"
             value="No"
-            checked={selectedOption1 === "No"}
+            checked={selectedOption3 === "No"}
             onChange={handleChange1}
           />
           &nbsp; No
         </label>
-      </div>
-      <br />
-      <h3>Dependents</h3>
-      <label>
-        <input
-          type="radio"
-          name="dependents"
-          value="0"
-          checked={selectedOption2 === "0"}
-          onChange={handleChange1}
-        />
-        &nbsp;0
-      </label>
-      <br />
-      <label>
-        <input
-          type="radio"
-          name="dependents"
-          value="1"
-          checked={selectedOption2 === "1"}
-          onChange={handleChange1}
-        />
-        &nbsp; 1
-      </label>
-      <br />
-      <label>
-        <input
-          type="radio"
-          name="dependents"
-          value="2"
-          checked={selectedOption2 === "2"}
-          onChange={handleChange1}
-        />
-        &nbsp; 2
-      </label>
-      <br />
-      <label>
-        <input
-          type="radio"
-          name="dependents"
-          value="3 or 3+"
-          checked={selectedOption2 === "3 or 3+"}
-          onChange={handleChange1}
-        />
-        &nbsp; 3 or 3+
-      </label>
-      <br />
-      <label>
-        <h3>Education</h3>
-        <select name="education" onChange={handleChange0}>
-          <option default value="">
-            Select
-          </option>
-          <option value="Graduate">Graduate</option>
-          <option value="Not Graduate">Not Graduate</option>
-        </select>
-      </label>
-      <br />
-      <h3>Self Employed</h3>
-      <label>
-        <input
-          type="radio"
-          name="selfEmployed"
-          value="Yes"
-          checked={selectedOption3 === "Yes"}
-          onChange={handleChange1}
-        />
-        &nbsp; Yes
-      </label>
-      <br />
-      <label>
-        <input
-          type="radio"
-          name="selfEmployed"
-          value="No"
-          checked={selectedOption3 === "No"}
-          onChange={handleChange1}
-        />
-        &nbsp; No
-      </label>
-      <br />
-      <label>
-        <h3>Credit History</h3>
-        <input
-          type="number"
-          name="creditHistory"
-          placeholder="Credit History"
-          onChange={handleChange}
-          required
-          min="0"
-        />
-        {iconInvalid() && (
-          <div>
-            <MdError color="red" size={20} />
-            <span>{iconInvalid()}</span>
+        <br />
+        <label>
+          <h3>Credit History</h3>
+          <input
+            type="number"
+            name="creditHistory"
+            placeholder="Credit History"
+            onChange={handleChange}
+            required
+            min="0"
+          />
+          {iconInvalid() && (
+            <div>
+              <MdError color="red" size={20} />
+              <span>{iconInvalid()}</span>
+            </div>
+          )}
+        </label>
+        <br />
+        <label>
+          <h3>Property Area</h3>
+          <select name="Area" onChange={handleChange0}>
+            <option default value="">
+              Select
+            </option>
+            <option value="Urban">Urban</option>
+            <option value="semiUrban">Semi Urban</option>
+            <option value="Rural">Rular</option>
+          </select>
+        </label>
+        <br />
+        <label>
+          <h3>Applicant Income </h3>
+          <input
+            type="number"
+            name="applicantIncome"
+            placeholder="Applicant Income "
+            onChange={handleChange}
+            required
+          />
+          {iconInvalid4() && <MdError color="red" size={20} />}
+          <span>{iconInvalid4()}</span>
+        </label>
+        <br />
+        <label>
+          <h3>Loan Amount </h3>
+          <input
+            type="number"
+            name="loanAmount"
+            value={data.loanAmount}
+            placeholder="Loan Amount "
+            onChange={handleChange}
+            required
+          />
+          {iconInvalid2() && <MdError color="red" size={20} />}
+          <span>{iconInvalid2()}</span>
+        </label>
+        <br />
+        <label>
+          <h3>Loan Amount Term (month/s) </h3>
+          <input
+            type="number"
+            name="loanAmountTerm"
+            value={data.loanAmountTerm}
+            placeholder="Loan Amount Term "
+            onChange={handleChange}
+            required
+            min="1"
+            max="480"
+          />
+          {iconInvalid3() && <MdError color="red" size={20} />}
+          <span>{iconInvalid3()}</span>
+        </label>
+        <br />
+        <label>
+          <h3>Total Family Income </h3>
+          <input
+            type="number"
+            name="totalIncome"
+            placeholder="Total Income "
+            onChange={handleChange}
+            required
+          />
+          {iconInvalid5() && <MdError color="red" size={20} />}
+          <span>{iconInvalid5()}</span>
+        </label>
+        <br />
+
+        {isDisable && (
+          <div id="style-one">
+            <div id="style-two">
+              <h3>{alertmsg}</h3>
+              <h2>See Information about banks?</h2>
+              <p>
+                Visit our <Link to="/Blog">Blog</Link> content to know more!
+              </p>
+              <button onClick={closeModal}>Close</button>
+            </div>
           </div>
         )}
-      </label>
-      <br />
-      <label>
-        <h3>Property Area</h3>
-        <select name="Area" onChange={handleChange0}>
-          <option default value="">
-            Select
-          </option>
-          <option value="Urban">Urban</option>
-          <option value="semiUrban">Semi Urban</option>
-          <option value="Rular">Rular</option>
-        </select>
-      </label>
-      <br />
-      <label>
-        <h3>Applicant Income </h3>
-        <input
-          type="number"
-          name="applicantIncome"
-          placeholder="Applicant Income "
-          onChange={handleChange}
-          required
-        />
-        {iconInvalid4() && <MdError color="red" size={20} />}
-        <span>{iconInvalid4()}</span>
-      </label>
-      <br />
-      <label>
-        <h3>Loan Amount </h3>
-        <input
-          type="number"
-          name="loanAmount"
-          value={data.loanAmount}
-          placeholder="Loan Amount "
-          onChange={handleChange}
-          required
-        />
-        {iconInvalid2() && <MdError color="red" size={20} />}
-        <span>{iconInvalid2()}</span>
-      </label>
-      <br />
-      <label>
-        <h3>Loan Amount Term (month/s) </h3>
-        <input
-          type="number"
-          name="loanAmountTerm"
-          value={data.loanAmountTerm}
-          placeholder="Loan Amount Term "
-          onChange={handleChange}
-          required
-          min="1"
-          max="480"
-        />
-        {iconInvalid3() && <MdError color="red" size={20} />}
-        <span>{iconInvalid3()}</span>
-      </label>
-      <br />
-      <label>
-        <h3>Total Family Income </h3>
-        <input
-          type="number"
-          name="totalIncome"
-          placeholder="Total Income "
-          onChange={handleChange}
-          required
-        />
-        {iconInvalid5() && <MdError color="red" size={20} />}
-        <span>{iconInvalid5()}</span>
-      </label>
-      <br />
 
-      {isDisable && (
-        <div id="style-one">
-          <div id="style-two">
-            <h3>{alertmsg}</h3>
-            <h2>See Information about banks?</h2>
-            <p>
-              Visit our <Link to="/Blog">Blog</Link> content to know more!
-            </p>
-            <button onClick={closeModal}>Close</button>
-          </div>
-        </div>
-      )}
-
-      <button
-        class="disable"
-        onClick={openModal}
-        type="submit"
-        disabled={!isFormValid}
-      >
-        Submit
-      </button>
-    </form>
+        <button
+          class="disable"
+          onClick={openModal}
+          type="submit"
+          disabled={!isFormValid}
+        >
+          Submit
+        </button>
+      </form>
+    </>
   );
 }
 
